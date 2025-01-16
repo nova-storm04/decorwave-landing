@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import { Card } from "./ui/card";
+import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { Heart, ShoppingCart, Eye } from "lucide-react";
+import { Heart, ShoppingCart } from "lucide-react";
 
 const products = [
   {
@@ -41,17 +41,24 @@ const products = [
 
 const FeaturedProducts = () => {
   return (
-    <section className="py-12 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-10"
+          className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold mb-2">Featured Products</h2>
-          <div className="w-24 h-1 bg-purple-600 mx-auto rounded-full mb-4" />
-          <p className="text-gray-600">Discover our most popular pieces</p>
+          <h2 className="text-3xl font-bold mb-3 relative inline-block">
+            Featured Products
+            <motion.div
+              className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 to-pink-600"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            />
+          </h2>
+          <p className="text-gray-600">Curated selection of our most popular pieces</p>
         </motion.div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -61,63 +68,48 @@ const FeaturedProducts = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group"
             >
-              <Card className="group relative overflow-hidden bg-white hover:shadow-xl transition-all duration-300 rounded-xl">
-                <div className="relative h-40 overflow-hidden">
-                  <motion.img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+              <Card className="overflow-hidden hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-0">
+                  <div className="relative h-48 overflow-hidden">
+                    <motion.img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.6 }}
+                    />
+                    <div className="absolute top-2 left-2 right-2 flex justify-between items-start">
+                      <Badge className="bg-white/90 text-purple-600 hover:bg-white">
+                        {product.tag}
+                      </Badge>
                       <Button 
-                        size="sm"
-                        variant="secondary"
-                        className="rounded-full bg-white/90 hover:bg-white"
+                        variant="ghost" 
+                        size="icon" 
+                        className="bg-white/90 hover:bg-white rounded-full h-8 w-8"
                       >
-                        <Eye className="h-4 w-4" />
+                        <Heart className="h-4 w-4 text-gray-600 hover:text-red-500 transition-colors" />
                       </Button>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-medium text-base mb-1 group-hover:text-purple-600 transition-colors">
+                      {product.name}
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-2 line-clamp-2">{product.description}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-lg font-bold text-gray-900">{product.price}</span>
                       <Button 
-                        size="sm"
-                        variant="secondary"
-                        className="rounded-full bg-white/90 hover:bg-white"
-                      >
-                        <Heart className="h-4 w-4" />
-                      </Button>
-                      <Button 
-                        size="sm"
-                        variant="secondary"
-                        className="rounded-full bg-white/90 hover:bg-white"
+                        variant="ghost" 
+                        size="icon" 
+                        className="hover:bg-purple-100 hover:text-purple-600 rounded-full h-8 w-8"
                       >
                         <ShoppingCart className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
-                  <Badge className="absolute top-2 left-2 bg-white/90">
-                    {product.tag}
-                  </Badge>
-                </div>
-                <div className="p-4">
-                  <h3 className="font-medium text-lg mb-1 group-hover:text-purple-600 transition-colors">
-                    {product.name}
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-2 line-clamp-1">
-                    {product.description}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold text-purple-600">
-                      {product.price}
-                    </span>
-                    <Button 
-                      size="sm"
-                      variant="ghost"
-                      className="hover:bg-purple-50 hover:text-purple-600"
-                    >
-                      Add to Cart
-                    </Button>
-                  </div>
-                </div>
+                </CardContent>
               </Card>
             </motion.div>
           ))}
