@@ -52,14 +52,17 @@ const FeaturedProducts = () => {
               key={product.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <Card className="overflow-hidden hover:shadow-lg transition-shadow">
                 <CardContent className="p-0 relative">
-                  <img
+                  <motion.img
                     src={product.image}
                     alt={product.name}
                     className="w-full h-48 object-cover"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.3 }}
                   />
                   <Badge className="absolute top-2 right-2">{product.tag}</Badge>
                   <div className="p-4">

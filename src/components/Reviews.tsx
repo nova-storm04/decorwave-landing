@@ -42,17 +42,37 @@ const Reviews = () => {
               key={review.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="h-full">
+              <Card className="h-full hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
-                  <div className="flex mb-4">
+                  <motion.div 
+                    className="flex mb-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
+                  >
                     {[...Array(review.rating)].map((_, i) => (
                       <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                     ))}
-                  </div>
-                  <p className="text-gray-600 mb-4">{review.text}</p>
-                  <p className="font-semibold">{review.name}</p>
+                  </motion.div>
+                  <motion.p 
+                    className="text-gray-600 mb-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
+                  >
+                    {review.text}
+                  </motion.p>
+                  <motion.p 
+                    className="font-semibold"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
+                  >
+                    {review.name}
+                  </motion.p>
                 </CardContent>
               </Card>
             </motion.div>
