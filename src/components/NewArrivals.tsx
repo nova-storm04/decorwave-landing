@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "./ui/card";
+import { Button } from "./ui/button";
+import { ArrowRight } from "lucide-react";
 
 const products = [
   {
@@ -24,16 +26,21 @@ const products = [
 
 const NewArrivals = () => {
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="container mx-auto">
-        <motion.h2
+    <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
+      <div className="container mx-auto px-4">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-3xl font-bold text-center mb-12"
+          className="text-center mb-12"
         >
-          New Arrivals
-        </motion.h2>
+          <h2 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
+            New Arrivals
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Discover our latest collection of stunning home decor pieces that will transform your space
+          </p>
+        </motion.div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {products.map((product, index) => (
@@ -43,16 +50,32 @@ const NewArrivals = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 border-none">
                 <CardContent className="p-0">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-64 object-cover"
-                  />
-                  <div className="p-4">
-                    <h3 className="font-semibold">{product.name}</h3>
-                    <p className="text-gray-600">{product.price}</p>
+                  <div className="relative overflow-hidden">
+                    <motion.img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-110"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <Button variant="secondary" className="bg-white hover:bg-gray-100">
+                        View Details
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="p-6 bg-white">
+                    <h3 className="font-semibold text-lg mb-2 group-hover:text-purple-600 transition-colors">
+                      {product.name}
+                    </h3>
+                    <div className="flex items-center justify-between">
+                      <p className="text-2xl font-bold text-gray-900">{product.price}</p>
+                      <Button variant="ghost" size="icon" className="hover:text-purple-600">
+                        <ArrowRight className="h-5 w-5" />
+                      </Button>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
