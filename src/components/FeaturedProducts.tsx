@@ -41,15 +41,15 @@ const products = [
 
 const FeaturedProducts = () => {
   return (
-    <section className="py-20 bg-gray-50">
+    <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold mb-4 relative inline-block">
+          <h2 className="text-3xl font-bold mb-3 relative inline-block">
             Featured Products
             <motion.div
               className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-purple-600 to-pink-600"
@@ -58,12 +58,10 @@ const FeaturedProducts = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
             />
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Curated selection of our most popular and stunning pieces
-          </p>
+          <p className="text-gray-600">Curated selection of our most popular pieces</p>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product, index) => (
             <motion.div
               key={product.id}
@@ -72,38 +70,42 @@ const FeaturedProducts = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group"
             >
-              <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-                <CardContent className="p-0 relative">
-                  <div className="relative overflow-hidden">
+              <Card className="overflow-hidden hover:shadow-lg transition-all duration-300">
+                <CardContent className="p-0">
+                  <div className="relative h-48 overflow-hidden">
                     <motion.img
                       src={product.image}
                       alt={product.name}
-                      className="w-full h-64 object-cover transition-transform duration-700"
+                      className="w-full h-full object-cover"
                       whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.6 }}
                     />
-                    <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-start">
+                    <div className="absolute top-2 left-2 right-2 flex justify-between items-start">
                       <Badge className="bg-white/90 text-purple-600 hover:bg-white">
                         {product.tag}
                       </Badge>
-                      <Button variant="ghost" size="icon" className="bg-white/90 hover:bg-white rounded-full">
-                        <Heart className="h-5 w-5 text-gray-600 hover:text-red-500 transition-colors" />
-                      </Button>
-                    </div>
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <Button className="bg-white text-gray-900 hover:bg-gray-100">
-                        Quick View
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="bg-white/90 hover:bg-white rounded-full h-8 w-8"
+                      >
+                        <Heart className="h-4 w-4 text-gray-600 hover:text-red-500 transition-colors" />
                       </Button>
                     </div>
                   </div>
-                  <div className="p-6 bg-white">
-                    <h3 className="font-semibold text-lg mb-2 group-hover:text-purple-600 transition-colors">
+                  <div className="p-4">
+                    <h3 className="font-medium text-base mb-1 group-hover:text-purple-600 transition-colors">
                       {product.name}
                     </h3>
-                    <p className="text-gray-600 text-sm mb-4">{product.description}</p>
+                    <p className="text-gray-600 text-sm mb-2 line-clamp-2">{product.description}</p>
                     <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold text-gray-900">{product.price}</span>
-                      <Button variant="ghost" size="icon" className="hover:bg-purple-100 hover:text-purple-600 rounded-full">
-                        <ShoppingCart className="h-5 w-5" />
+                      <span className="text-lg font-bold text-gray-900">{product.price}</span>
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="hover:bg-purple-100 hover:text-purple-600 rounded-full h-8 w-8"
+                      >
+                        <ShoppingCart className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
