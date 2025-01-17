@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Eye } from "lucide-react";
 
 const products = [
   {
@@ -82,6 +82,22 @@ const NewArrivals = () => {
             </motion.div>
           ))}
         </div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-12 text-center"
+        >
+          <Button
+            variant="outline"
+            size="lg"
+            className="group bg-white hover:bg-purple-50 border-2 border-purple-200 hover:border-purple-300 text-purple-600 hover:text-purple-700 transition-all duration-300 shadow-sm hover:shadow-md"
+          >
+            <span>View All Collections</span>
+            <Eye className="ml-2 h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+          </Button>
+        </motion.div>
       </div>
     </section>
   );
