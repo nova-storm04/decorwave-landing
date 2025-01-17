@@ -5,6 +5,7 @@ import FeaturedProducts from "@/components/FeaturedProducts";
 import ShopByCategory from "@/components/ShopByCategory";
 import Reviews from "@/components/Reviews";
 import Newsletter from "@/components/Newsletter";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -19,6 +20,7 @@ const Index = () => {
       <ShopByCategory />
       <Reviews />
       <Newsletter />
+      <Footer />
     </motion.div>
   );
 };
