@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import Hero from "@/components/Hero";
 import NewArrivals from "@/components/NewArrivals";
 import FeaturedProducts from "@/components/FeaturedProducts";
+import ShopByCategory from "@/components/ShopByCategory";
 import Reviews from "@/components/Reviews";
 import Newsletter from "@/components/Newsletter";
 
@@ -15,6 +16,7 @@ const Index = () => {
       <Hero />
       <NewArrivals />
       <FeaturedProducts />
+      <ShopByCategory />
       <Reviews />
       <Newsletter />
     </motion.div>
