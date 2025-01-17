@@ -8,18 +8,21 @@ const reviews = [
     name: "Sarah Johnson",
     rating: 5,
     text: "Absolutely love the quality of their furniture! The customer service was exceptional, and delivery was prompt.",
+    image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=800&auto=format&fit=crop",
   },
   {
     id: 2,
     name: "Michael Chen",
     rating: 5,
     text: "The attention to detail in their products is remarkable. My living room has never looked better!",
+    image: "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?q=80&w=800&auto=format&fit=crop",
   },
   {
     id: 3,
     name: "Emma Davis",
     rating: 5,
     text: "Great selection of modern pieces. Everything I've purchased has exceeded my expectations.",
+    image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=800&auto=format&fit=crop",
   },
 ];
 
@@ -47,6 +50,13 @@ const Reviews = () => {
             >
               <Card className="h-full hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
+                  <div className="relative h-48 mb-6 rounded-lg overflow-hidden">
+                    <img 
+                      src={review.image} 
+                      alt={`Review by ${review.name}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                   <motion.div 
                     className="flex mb-4"
                     initial={{ opacity: 0 }}
