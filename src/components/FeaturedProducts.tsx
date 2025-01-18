@@ -118,28 +118,29 @@ const FeaturedProducts = () => {
           ))}
         </div>
 
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="mt-12 text-center"
-      >
-        <Button
-          variant="outline"
-          size="lg"
-          className="group relative overflow-hidden bg-white hover:bg-purple-50 border-2 border-purple-200 hover:border-purple-300 text-purple-600 hover:text-purple-700 transition-all duration-300 shadow-sm hover:shadow-md"
-          onClick={() => navigate('/products?category=featured')}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-12 text-center"
         >
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-pink-600/10"
-            initial={{ x: '-100%' }}
-            whileHover={{ x: '100%' }}
-            transition={{ duration: 0.5 }}
-          />
-          <span className="relative">View All Collections</span>
-          <Eye className="relative ml-2 h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
-        </Button>
-      </motion.div>
+          <Button
+            variant="outline"
+            size="lg"
+            className="group relative overflow-hidden bg-white hover:bg-purple-50 border-2 border-purple-200 hover:border-purple-300 text-purple-600 hover:text-purple-700 transition-all duration-300 shadow-sm hover:shadow-md"
+            onClick={() => navigate('/products?category=featured')}
+          >
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-pink-600/10"
+              initial={{ x: '-100%' }}
+              whileHover={{ x: '100%' }}
+              transition={{ duration: 0.5 }}
+            />
+            <span className="relative">View All Collections</span>
+            <Eye className="relative ml-2 h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+          </Button>
+        </motion.div>
+      </div>
     </section>
   );
 };
