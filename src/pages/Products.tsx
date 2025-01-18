@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Heart, ShoppingCart, Filter } from "lucide-react";
-import { useSearchParams } from "react-router-dom";
+import { Heart, ShoppingCart } from "lucide-react";
+import CategoryNav from "@/components/CategoryNav";
 import {
   Select,
   SelectContent,
@@ -13,7 +14,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// Combined products from all sections
 const allProducts = [
   // Featured Products
   {
@@ -112,16 +112,9 @@ const allProducts = [
 
 const Products = () => {
   const [searchParams] = useSearchParams();
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("featured");
-
-  useEffect(() => {
-    const category = searchParams.get("category");
-    if (category) {
-      setSelectedCategory(category);
-      console.log("Category from URL:", category);
-    }
-  }, [searchParams]);
+  const navigate = useNavigate();
+  const selectedCategory = searchParams.get("category") || "all";
 
   const filteredProducts = allProducts.filter(product => {
     if (selectedCategory === "all") return true;
@@ -148,52 +141,23 @@ const Products = () => {
       transition={{ duration: 0.5 }}
       className="min-h-screen bg-gray-50"
     >
-      <div className="container py-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <h1 className="text-4xl font-bold mb-4">Our Products</h1>
-          <p className="text-gray-600">Discover our complete collection of premium home decor</p>
-        </motion.div>
-
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-          <div className="flex flex-wrap gap-4 w-full md:w-auto">
-            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                <SelectItem value="living room">Living Room</SelectItem>
-                <SelectItem value="bedroom">Bedroom</SelectItem>
-                <SelectItem value="kitchen">Kitchen</SelectItem>
-                <SelectItem value="office">Office</SelectItem>
-                <SelectItem value="decor">Decor</SelectItem>
-                <SelectItem value="lighting">Lighting</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Sort by" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="featured">Featured</SelectItem>
-                <SelectItem value="price-low">Price: Low to High</SelectItem>
-                <SelectItem value="price-high">Price: High to Low</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <Button variant="outline" className="gap-2">
-            <Filter className="h-4 w-4" /> Filters
-          </Button>
+      <CategoryNav />
+      
+      <div className="container py-8">
+        <div className="flex justify-end mb-6">
+          <Select value={sortBy} onValueChange={setSortBy}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="featured">Featured</SelectItem>
+              <SelectItem value="price-low">Price: Low to High</SelectItem>
+              <SelectItem value="price-high">Price: High to Low</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {sortedProducts.map((product, index) => (
             <motion.div
               key={product.id}
@@ -201,8 +165,9 @@ const Products = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group"
+              onClick={() => navigate(`/products/${product.id}`)}
             >
-              <Card className="overflow-hidden hover:shadow-lg transition-all duration-300">
+              <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer">
                 <CardContent className="p-0">
                   <div className="relative h-48 overflow-hidden">
                     <motion.img
@@ -220,6 +185,10 @@ const Products = () => {
                         variant="ghost" 
                         size="icon" 
                         className="bg-white/90 hover:bg-white rounded-full h-8 w-8"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // Add to wishlist logic
+                        }}
                       >
                         <Heart className="h-4 w-4 text-gray-600 hover:text-red-500 transition-colors" />
                       </Button>
@@ -236,6 +205,10 @@ const Products = () => {
                         variant="ghost" 
                         size="icon" 
                         className="hover:bg-purple-100 hover:text-purple-600 rounded-full h-8 w-8"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // Add to cart logic
+                        }}
                       >
                         <ShoppingCart className="h-4 w-4" />
                       </Button>
