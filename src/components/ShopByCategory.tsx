@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "./ui/card";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const categories = [
   {
@@ -31,6 +31,8 @@ const categories = [
 ];
 
 const ShopByCategory = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
@@ -51,35 +53,34 @@ const ShopByCategory = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              onClick={() => navigate(`/products?category=${category.name.toLowerCase().replace(' ', '-')}`)}
             >
-              <Link to={`/category/${category.name.toLowerCase()}`}>
-                <Card className="group cursor-pointer overflow-hidden">
-                  <CardContent className="p-0">
-                    <div className="relative h-64">
-                      <motion.img
-                        src={category.image}
-                        alt={category.name}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-black/40 transition-opacity group-hover:bg-black/50" />
-                      <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
-                        <h3 className="text-xl font-semibold mb-1">{category.name}</h3>
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm opacity-90">{category.itemCount} items</span>
-                          <motion.div
-                            initial={{ x: -10, opacity: 0 }}
-                            whileHover={{ x: 0, opacity: 1 }}
-                            className="flex items-center gap-1"
-                          >
-                            <span className="text-sm">Shop Now</span>
-                            <ArrowRight className="h-4 w-4" />
-                          </motion.div>
-                        </div>
+              <Card className="group cursor-pointer overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="relative h-64">
+                    <motion.img
+                      src={category.image}
+                      alt={category.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-black/40 transition-opacity group-hover:bg-black/50" />
+                    <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
+                      <h3 className="text-xl font-semibold mb-1">{category.name}</h3>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm opacity-90">{category.itemCount} items</span>
+                        <motion.div
+                          initial={{ x: -10, opacity: 0 }}
+                          whileHover={{ x: 0, opacity: 1 }}
+                          className="flex items-center gap-1"
+                        >
+                          <span className="text-sm">Shop Now</span>
+                          <ArrowRight className="h-4 w-4" />
+                        </motion.div>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              </Link>
+                  </div>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>

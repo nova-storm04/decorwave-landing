@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { ArrowRight, Eye } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const products = [
   {
@@ -25,6 +26,8 @@ const products = [
 ];
 
 const NewArrivals = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4">
@@ -93,6 +96,7 @@ const NewArrivals = () => {
             variant="outline"
             size="lg"
             className="group bg-white hover:bg-purple-50 border-2 border-purple-200 hover:border-purple-300 text-purple-600 hover:text-purple-700 transition-all duration-300 shadow-sm hover:shadow-md"
+            onClick={() => navigate('/products?category=new-arrivals')}
           >
             <span>View All Collections</span>
             <Eye className="ml-2 h-5 w-5 group-hover:scale-110 transition-transform duration-300" />

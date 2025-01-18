@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart, Filter } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 import {
   Select,
   SelectContent,
@@ -110,12 +111,24 @@ const allProducts = [
 ];
 
 const Products = () => {
+  const [searchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("featured");
 
-  const filteredProducts = allProducts.filter(product => 
-    selectedCategory === "all" ? true : product.category.toLowerCase() === selectedCategory.toLowerCase()
-  );
+  useEffect(() => {
+    const category = searchParams.get("category");
+    if (category) {
+      setSelectedCategory(category);
+      console.log("Category from URL:", category);
+    }
+  }, [searchParams]);
+
+  const filteredProducts = allProducts.filter(product => {
+    if (selectedCategory === "all") return true;
+    if (selectedCategory === "featured") return product.tag === "Best Seller" || product.tag === "Popular";
+    if (selectedCategory === "new-arrivals") return product.tag === "New" || product.tag === "New Arrival";
+    return product.category.toLowerCase().replace(' ', '-') === selectedCategory;
+  });
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortBy === "price-low") {
