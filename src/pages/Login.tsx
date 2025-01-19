@@ -35,7 +35,12 @@ const Login = () => {
               required
             />
           </div>
-          <Button className="w-full">Sign In</Button>
+          <div className="flex items-center justify-between">
+            <Link to="/forgot-password" className="text-sm text-purple-600 hover:underline">
+              Forgot password?
+            </Link>
+          </div>
+          <Button className="w-full bg-purple-600 hover:bg-purple-700">Sign In</Button>
         </form>
         <p className="mt-4 text-center text-sm text-gray-600">
           Don't have an account?{" "}
